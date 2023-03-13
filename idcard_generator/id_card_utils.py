@@ -14,26 +14,16 @@ class IdentityCard:
 
     @staticmethod
     def calculate(code):
-        sum_value = 0
-        for i in range(17):
-            sum_value += int(code[i]) * IdentityCard.__Wi[i]
+        sum_value = sum(int(code[i]) * IdentityCard.__Wi[i] for i in range(17))
         return IdentityCard.__Ti[sum_value % 11]
 
 
 # 随机生成身份证号
 def random_card_no(prefix='', year='', month='', day=''):
-    if len(prefix) < 6:
-        prefix = '513701'
-    else:
-        prefix = prefix[0:6]
-
-    if len(year) > 0:
-        year = str(year).zfill(4)
-    else:
-        year = str(random.randint(1900, 2020))
-
+    prefix = '513701' if len(prefix) < 6 else prefix[:6]
+    year = str(year).zfill(4) if len(year) > 0 else str(random.randint(1900, 2020))
     if len(month) > 0:
-        month = str(month[0:2]).zfill(2)
+        month = str(month[:2]).zfill(2)
     else:
         month = str(random.randint(1, 12)).zfill(2)
 
@@ -72,7 +62,7 @@ def test():
     code = random_card_no()  # 17位身份证
     print(code)
     if IdentityCard.check(code):
-        print("你的校验位为:%s" % IdentityCard.calculate(code))
+        print(f"你的校验位为:{IdentityCard.calculate(code)}")
 
 
 if __name__ == '__main__':

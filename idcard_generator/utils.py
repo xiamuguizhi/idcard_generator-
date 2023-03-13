@@ -4,14 +4,7 @@ import webbrowser
 
 
 def get_base_path():
-    # 是否Bundle Resource
-    if getattr(sys, 'frozen', False):
-        # 单个exe解药后的路径
-        base_path = sys._MEIPASS
-    else:
-        # 不打包，正常执行的路径
-        base_path = os.path.abspath(".")
-    return base_path
+    return sys._MEIPASS if getattr(sys, 'frozen', False) else os.path.abspath(".")
 
 
 # 此处必须注意，绑定的事件函数中必须要包含event参数
@@ -23,9 +16,7 @@ def open_url(event):
 def get_show_len(txt):
     len_txt = len(txt)
     len_txt_utf8 = len(txt.encode('utf-8'))
-    # 中文字符多算1位
-    size = int((len_txt_utf8 - len_txt) / 2 + len_txt)
-    return size
+    return int((len_txt_utf8 - len_txt) / 2 + len_txt)
 
 
 # 获得要显示的字符串

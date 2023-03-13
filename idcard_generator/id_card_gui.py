@@ -77,7 +77,7 @@ class IDGen:
         set_entry_value(self.eOrg, "四川省成都市锦江分局")
         start_time = id_card_utils.get_start_time()
         expire_time = id_card_utils.get_expire_time()
-        set_entry_value(self.eLife, start_time + "-" + expire_time)
+        set_entry_value(self.eLife, f"{start_time}-{expire_time}")
 
     def generator_image(self):
         self.f_name = askopenfilename(initialdir=os.getcwd(), title='选择头像')
@@ -205,7 +205,7 @@ class IDGen:
         while start < utils.get_show_len(addr):
             show_txt = utils.get_show_txt(addr, start, start + 22)
             addr_lines.append(show_txt)
-            start = start + 22
+            start += 22
 
         return addr_lines
 
